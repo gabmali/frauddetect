@@ -1,0 +1,2 @@
+id,customer_id,timestamp,amount,city,state,category,kind,channel
+PORTFOLIO-QA-001,CLI-0001,2026-11-02T02:00:00,99999.90,Recife,PE,Transferências,Pix,Aplicativo

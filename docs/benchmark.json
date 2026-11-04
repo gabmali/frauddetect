@@ -1,0 +1,21 @@
+{
+  "python": "3.12.14",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "scope": "Geração, regras causais e agregação em memória; sem treino ou gravação SQL",
+  "measurements": [
+    {
+      "rows": 20000,
+      "generate_seconds": 2.206,
+      "rules_seconds": 0.66,
+      "aggregate_seconds": 0.461,
+      "flagged": 997
+    },
+    {
+      "rows": 100000,
+      "generate_seconds": 8.858,
+      "rules_seconds": 3.627,
+      "aggregate_seconds": 1.068,
+      "flagged": 5245
+    }
+  ]
+}

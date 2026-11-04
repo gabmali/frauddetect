@@ -1,0 +1,8 @@
+import type {ReactNode} from 'react';
+import {ArrowUpRight,ShieldCheck,Database,TriangleAlert} from 'lucide-react';
+import {money,number} from '../services/api';
+import type {Dashboard} from '../types';
+export function Card({title,subtitle,children,className=''}:{title:string;subtitle?:string;children:ReactNode;className?:string}){return <section className={'card '+className}><div className="card-heading"><div><h3>{title}</h3>{subtitle&&<p>{subtitle}</p>}</div></div>{children}</section>}
+export function Risk({risk}:{risk:string}){return <span className={'risk risk-'+risk}>{risk==='alto'?'Alto risco':risk==='médio'?'Médio risco':'Baixo risco'}</span>}
+export function Metrics({d}:{d:Dashboard}){const items=[['Transações analisadas',number(d.total),Database,'Base selecionada'],['Transações sinalizadas',number(d.flagged),TriangleAlert,`${d.rate.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}% do total`],['Valor potencialmente exposto',money(d.exposure),ArrowUpRight,'Sinalizadas para revisão'],['Volume movimentado',money(d.volume),ShieldCheck,'Operações sintéticas'] ] as const;return <div className="metrics">{items.map(([label,value,Icon,caption],i)=><article className="metric" key={label}><div className="metric-label">{label}<span className={i===1?'icon orange':'icon'}><Icon size={19}/></span></div><strong>{value}</strong><small>{caption}</small></article>)}</div>}
+export function State({error,loading}:{error:string;loading:boolean}){return error?<div role="alert" className="message error">{error}</div>:loading?<div role="status" className="message loading-state"><span className="spinner" aria-hidden="true"/>Carregando os dados da análise…</div>:null}

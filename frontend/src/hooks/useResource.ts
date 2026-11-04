@@ -1,0 +1,3 @@
+import {useEffect,useState} from 'react';
+import {api} from '../services/api';
+export function useResource<T>(path:string,version=0){const [data,setData]=useState<T>();const[error,setError]=useState('');const[loading,setLoading]=useState(true);const[retry,setRetry]=useState(0);useEffect(()=>{let current=true;const controller=new AbortController();setLoading(true);setError('');setData(undefined);api<T>(path,{signal:controller.signal}).then(d=>{if(current)setData(d)}).catch(e=>{if(current)setError(e.message)}).finally(()=>{if(current)setLoading(false)});return()=>{current=false;controller.abort()}},[path,version,retry]);return{data,error,loading,reload:()=>setRetry(v=>v+1)}}

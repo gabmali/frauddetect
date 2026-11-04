@@ -1,0 +1,13 @@
+.venv/
+node_modules/
+dist/
+__pycache__/
+.pytest_cache/
+*.db
+*.db-*
+*.joblib
+*.log
+*.tsbuildinfo
+.env
+data/synthetic/*
+!data/synthetic/.gitkeep

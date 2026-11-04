@@ -10,7 +10,7 @@ Acesso público e gratuito, sem login. Explore 20.000 transações fictícias, f
 
 [Como o site é publicado](docs/PUBLICACAO.md) · [Código no GitHub](https://github.com/gabmali/frauddetect) · [Validação e evidências](docs/PORTFOLIO.md)
 
-![Dashboard FraudDetect](docs/screenshots/qa-desktop.jpg)
+![FraudDetect publicado no GitHub Pages](docs/screenshots/github-pages-publicado.jpg)
 
 Validação final, evidências e roteiro de apresentação: [docs/PORTFOLIO.md](docs/PORTFOLIO.md).
 

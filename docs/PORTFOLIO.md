@@ -85,3 +85,16 @@ Site: https://gabmali.github.io/frauddetect/
 A versão de portfólio foi adaptada para consulta pública sem login: 20.000 transações sintéticas, filtros, gráficos, detalhes, modelos e exportação CSV/Excel/PDF. O Python gera os resultados durante a publicação; a interface executa as consultas no navegador. Importação e edição são recursos da versão local com backend.
 
 Validação da adaptação: 24 testes do frontend aprovados (incluindo 9 novos casos de filtros, métricas, comparação, paginação, bloqueio de gravação e relatórios), TypeScript e build de produção aprovados; auditoria npm sem vulnerabilidades conhecidas. O workflow de testes continua verificando também o backend. A validação manual anterior no Edge se refere à versão local; não substitui verificação da nova publicação.
+
+
+### Verificação após a publicação
+
+Publicação no GitHub Pages concluída com sucesso e endereço público respondendo HTTP 200. A aplicação foi aberta no navegador integrado sem login. Os workflows de backend e frontend passaram no GitHub (39 + 24 = 63 testes).
+
+Verificações na URL pública: dashboard com 20.000 transações e 1.008 sinalizadas; filtro de alto risco com 420 registros; paginação; detalhes com pontos das regras e indicador do modelo; bloqueio de gravação; consulta das cinco regras; métricas dos dois modelos; alertas e estado vazio por status; orientação de importação local; tela Sobre; agrupamento mensal; recarregamento de rota por hash. Nenhum erro apareceu no console durante a verificação final.
+
+Downloads realizados pelo próprio site e conferidos com leitores independentes: CSV com 20.000 linhas de dados e 13 colunas; Excel com 20.000 transações e volume de R$ 14.154.099,96; PDF com 3 páginas contendo resumo, evolução e métricas de modelos. O volume dos arquivos corresponde ao dashboard.
+
+![Demonstração pública funcionando](screenshots/github-pages-publicado.jpg)
+
+O site é público para recrutadores e demais visitantes. Nenhum servidor local precisa permanecer ligado. Os recursos de consulta e exportação são online; edição e importação com persistência exigem a instalação local completa.

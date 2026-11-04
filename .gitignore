@@ -9,5 +9,6 @@ __pycache__/
 *.log
 *.tsbuildinfo
 .env
+frontend/public/demo.json
 data/synthetic/*
 !data/synthetic/.gitkeep

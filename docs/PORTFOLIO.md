@@ -75,4 +75,13 @@ O navegador integrado foi verificado em tamanhos de desktop e celular; o roteiro
 
 O aviso de depreciação Starlette/httpx nos testes continua sem causar falhas. Não há autenticação; mantenha os servidores em `127.0.0.1`.
 
-Antes de publicar o repositório, substitua os espaços de GitHub, contato e demonstração pelos seus links reais. Nenhuma credencial, banco, modelo ou dado gerado deve ser versionado. O `.gitignore` já os exclui.
+Os links reais do GitHub e da demonstração constam no README. Nenhuma credencial, banco, modelo ou dado gerado deve ser versionado. O `.gitignore` já os exclui.
+
+
+## Demonstração pública — GitHub Pages (04/11/2026)
+
+Site: https://gabmali.github.io/frauddetect/
+
+A versão de portfólio foi adaptada para consulta pública sem login: 20.000 transações sintéticas, filtros, gráficos, detalhes, modelos e exportação CSV/Excel/PDF. O Python gera os resultados durante a publicação; a interface executa as consultas no navegador. Importação e edição são recursos da versão local com backend.
+
+Validação da adaptação: 24 testes do frontend aprovados (incluindo 9 novos casos de filtros, métricas, comparação, paginação, bloqueio de gravação e relatórios), TypeScript e build de produção aprovados; auditoria npm sem vulnerabilidades conhecidas. O workflow de testes continua verificando também o backend. A validação manual anterior no Edge se refere à versão local; não substitui verificação da nova publicação.

@@ -2,22 +2,38 @@
 
 Código: https://github.com/gabmali/frauddetect
 
-## Demonstração restrita a recrutadores
+## Site público no GitHub Pages
 
-O site pede usuário e senha antes de mostrar páginas, arquivos ou APIs. Somente o teste mínimo `/healthz` e a orientação de não indexação `/robots.txt` dispensam login. A ausência da senha mantém a demonstração fechada.
+**Abrir: https://gabmali.github.io/frauddetect/**
 
-O repositório contém `Dockerfile` e `render.yaml` para publicar frontend e FastAPI juntos em um Web Service gratuito. Não utilize GitHub Pages para essa aplicação: ele não executa o backend Python.
+Qualquer pessoa pode acessar o site sem login, inclusive recrutadores. O link também aparece no início do README e no campo Website do repositório. Não é necessário usar o Render.
 
-1. Entre em https://dashboard.render.com e conecte sua conta GitHub.
-2. Escolha **New → Blueprint** e selecione `gabmali/frauddetect`.
-3. Confira o serviço `frauddetect`, runtime Docker e plano **Free**. Não habilite recursos pagos.
-4. Defina `DEMO_ACCESS_PASSWORD` no painel do Render: use uma senha com pelo menos 16 caracteres. O usuário padrão é `recrutador`. Não coloque a senha no código, no README ou na URL.
-5. Inicie o deploy. O endereço definitivo é atribuído pelo Render; não presuma que o subdomínio `frauddetect` estará disponível.
-6. Abra a URL retornada e aguarde a inicialização dos dados e modelos.
-7. Confira dashboard, busca, filtros, detalhes, métricas e relatórios. A versão pública bloqueia alterações; a versão local continua completa.
-8. Coloque a URL verificada no início do README como **Demonstração para recrutadores — acesso com senha**, e no campo **Website** da seção About do GitHub.
+### Como funciona
 
-O Render Free suspende o serviço após inatividade e pode levar cerca de um minuto para reativá-lo. O disco é efêmero: SQLite e modelo são recriados a partir dos dados fictícios quando necessário. Consulte as condições e limites atuais em https://render.com/docs/free. Não são necessários bancos reais, segredos da aplicação ou APIs pagas.
+O workflow `.github/workflows/pages.yml` publica automaticamente cada atualização da branch `main`:
+
+1. Instala as dependências Python e gera 20.000 transações totalmente fictícias com semente fixa.
+2. Calcula as regras causais, treina os modelos e exporta seus resultados com `python -m scripts.export_demo`.
+3. Executa os testes do frontend e compila com `VITE_PAGES_DEMO=true`, `VITE_PUBLIC_DEMO=true` e `VITE_BASE_PATH=/frauddetect/`.
+4. Publica os arquivos de `frontend/dist` usando GitHub Actions e GitHub Pages.
+
+O GitHub Pages serve arquivos estáticos; o navegador calcula consultas e agregações a partir da base exportada. Não existe API Python hospedada nesse endereço. Os resultados dos modelos foram efetivamente calculados pelo código Python do projeto, durante o build.
+
+### Recursos disponíveis
+
+Dashboard, filtros combinados, agrupamentos, ordenação, paginação, detalhes, alertas para consulta, métricas de modelos, comparação de períodos e exportação CSV/Excel/PDF funcionam no navegador. Excel e PDF são carregados somente ao gerar esses formatos.
+
+Importação e edição de regras ou análises estão desabilitadas na demonstração. Para usar esses recursos com persistência, siga a instalação local no README. O backend completo continua no repositório.
+
+O JSON público contém somente dados fictícios. Não inclua credenciais, documentos ou transações reais no exportador. Nenhuma chave é necessária para o site.
+
+### Atualizar e conferir
+
+Depois de enviar alterações para `main`, acompanhe o workflow **Publicar site no GitHub Pages** na aba Actions. Aguarde os jobs `build` e `deploy` concluírem e então abra o endereço acima. O site usa navegação por hash, permitindo recarregar links como `/#modelos` sem erro de rota.
+
+### Hospedagem opcional com backend
+
+O `Dockerfile` e o `render.yaml` permanecem como alternativa para executar FastAPI e frontend juntos. Essa alternativa não é necessária para o GitHub Pages. As variáveis `PUBLIC_DEMO`, `REQUIRE_DEMO_AUTH`, `DEMO_ACCESS_USER` e `DEMO_ACCESS_PASSWORD` dizem respeito apenas à hospedagem com backend; não são usadas pela demonstração estática pública.
 
 ## Executar a imagem localmente
 

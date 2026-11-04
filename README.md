@@ -4,7 +4,11 @@
 
 Python · FastAPI · React · TypeScript · SQLite · Scikit-learn
 
-[Demonstração para recrutadores — configuração de acesso por senha](docs/PUBLICACAO.md) · [Código no GitHub](https://github.com/gabmali/frauddetect) · [Validação e evidências](docs/PORTFOLIO.md)
+## [Abrir o FraudDetect — site funcionando](https://gabmali.github.io/frauddetect/)
+
+Acesso público e gratuito, sem login. Explore 20.000 transações fictícias, filtros, gráficos, detalhes, modelos e relatórios CSV, Excel e PDF.
+
+[Como o site é publicado](docs/PUBLICACAO.md) · [Código no GitHub](https://github.com/gabmali/frauddetect) · [Validação e evidências](docs/PORTFOLIO.md)
 
 ![Dashboard FraudDetect](docs/screenshots/qa-desktop.jpg)
 
@@ -12,9 +16,15 @@ Validação final, evidências e roteiro de apresentação: [docs/PORTFOLIO.md](
 
 **Validação de portfólio concluída em 03/11/2026:** 54 testes automatizados aprovados (39 de backend e 15 de frontend), build de produção validado e roteiro funcional no Microsoft Edge aprovado manualmente pela usuária. Escopo e limitações estão registrados no relatório final.
 
-Plataforma inteligente de detecção de fraudes — demonstração local de análise de risco com **dados 100% fictícios**. Projeto de portfólio de Gabriela Oliveira.
+Plataforma inteligente de detecção de fraudes — projeto de análise de risco com **dados 100% fictícios**. Projeto de portfólio de Gabriela Oliveira.
 
 O problema de negócio é priorizar operações que merecem revisão humana. O sistema reúne exploração de transações, regras explicáveis, avaliação de Machine Learning e acompanhamento de alertas. Sinalização de risco não comprova fraude.
+
+## Demonstração online e projeto completo
+
+A versão no **GitHub Pages** executa as consultas no navegador. O pipeline Python gera os dados sintéticos, treina os modelos e exporta os resultados durante a publicação. Os gráficos, filtros, ordenação, paginação, detalhes e downloads funcionam sem um servidor Python online. Não é necessário instalar nada para visitar o site.
+
+A demonstração pública é de consulta: importação de bases, edição de regras e gravação de análises ficam disponíveis na instalação local com FastAPI e SQLite. Os modelos são demonstrativos e os scores não são probabilidades calibradas.
 
 ## Funcionalidades
 

@@ -1,0 +1,19 @@
+import {describe,it,expect,vi} from 'vitest';
+import {dashboard,filterRows,staticRequest,summarize} from './staticDemo';
+import {csvCell,staticReport} from './staticReports';
+import type {Transaction,Filters} from '../types';
+const row=(id:string,date:string,amount:number,score:number):Transaction=>({id,customer_id:'CLI-001',timestamp:date+'T12:00:00',amount,score,risk:score>=60?'alto':score>=30?'médio':'baixo',city:'Recife',state:'PE',category:'Compras',kind:'Pix',channel:'Aplicativo',reasons:score>=30?['Valor acima do histórico']:[],recommendation:'Revisar',revision:0,status:'Pendente'});
+const rows=[row('TX-1','2026-10-01',100,0),row('TX-2','2026-10-02',300,35),row('TX-3','2026-10-03',900,70),row('TX-4','2026-10-04',200,0)];
+const filters:Filters={q:'',risk:'',start:'',end:'',min_amount:'',max_amount:''};
+vi.stubGlobal('fetch',vi.fn(async()=>({ok:true,json:async()=>({schema:1,cutoff:'2026-10-03',rules:{},models:[],transactions:rows})})));
+describe('Demonstração do GitHub Pages',()=>{
+ it('combina busca sem diferenciar maiúsculas, risco, valor e datas inclusivas',()=>{expect(filterRows(rows,new URLSearchParams('q=cli-001&risk=alto&start=2026-10-03&end=2026-10-03&min_amount=500&max_amount=900')).map(r=>r.id)).toEqual(['TX-3'])});
+ it('rejeita intervalos invertidos',()=>{expect(()=>filterRows(rows,new URLSearchParams('min_amount=10&max_amount=1'))).toThrow('valor mínimo');expect(()=>filterRows(rows,new URLSearchParams('start=2026-10-04&end=2026-10-01'))).toThrow('data inicial')});
+ it('calcula métricas e faixas sem perder transações',()=>{const d=summarize(rows);expect(d).toMatchObject({total:4,flagged:2,rate:50,volume:1500,exposure:1200,median:250});expect(d.histogram.reduce((n,p)=>n+p.value,0)).toBe(4);expect(d.risks.map(p=>p.value)).toEqual([2,1,1]);expect(summarize([])).toMatchObject({total:0,median:0,p95:0,rate:0})});
+ it('compara com o período anterior de igual duração',()=>{const d=dashboard(rows,new URLSearchParams('start=2026-10-03&end=2026-10-04'));expect(d).toMatchObject({total:2,volume:1100,previous:{total:2,volume:400}})});
+ it('agrupa por mês e semana ISO inclusive na virada do ano',()=>{expect(summarize(rows,'mês').timeline).toHaveLength(1);expect(summarize([row('X','2027-01-01',1,0)],'semana').timeline[0].date).toBe('2026-S53')});
+ it('ordena, pagina e abre os detalhes da mesma transação',async()=>{const data=await staticRequest<{total:number;items:Transaction[]}>('/transactions?sort=amount&direction=desc&size=1&page=2');expect(data.total).toBe(4);expect(data.items[0].id).toBe('TX-2');expect(await staticRequest('/transactions/TX-2')).toMatchObject({id:'TX-2',score:35,status:'Pendente'});await expect(staticRequest('/transactions/inexistente')).rejects.toMatchObject({status:404})});
+ it('filtra alertas e bloqueia gravações',async()=>{expect(await staticRequest('/alerts?status=Resolvido')).toMatchObject({total:0,items:[]});expect(await staticRequest('/alerts')).toMatchObject({total:2});await expect(staticRequest('/rules',{method:'PUT'})).rejects.toMatchObject({status:403})});
+ it('exporta CSV filtrado com proteção contra fórmulas',async()=>{expect(csvCell('=1+2')).toBe('"\'=1+2"');const blob=await staticReport('csv',{...filters,risk:'alto'});const reader=new FileReader();const text=await new Promise<string>(resolve=>{reader.onload=()=>resolve(String(reader.result));reader.readAsText(blob)});expect(text).toContain('TX-3');expect(text).not.toContain('TX-2');expect(blob.type).toContain('text/csv')});
+ it('gera arquivos Excel e PDF válidos',async()=>{const excel=await staticReport('xlsx',filters),pdf=await staticReport('pdf',filters);expect(excel.size).toBeGreaterThan(1000);expect(excel.type).toContain('spreadsheetml');const reader=new FileReader();const prefix=await new Promise<string>(resolve=>{reader.onload=()=>resolve(String(reader.result).slice(0,8));reader.readAsText(pdf)});expect(prefix).toContain('%PDF-')});
+});

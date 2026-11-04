@@ -47,9 +47,9 @@ export function Detail({id,onClose,onChange}:{id:string;onClose:()=>void;onChang
 
     {t.status!=='Sem alerta'&&<form onSubmit={async e=>{e.preventDefault();if(!await confirmAction('Registrar esta análise no histórico?'))return;setBusy(true);setMessage('');try{const r=await api<{message:string}>('/alerts/'+encodeURIComponent(id),json('PATCH',{status,note,revision:t.revision}));setMessage(r.message);onChange();reload()}catch(e){setMessage((e as Error).message);if(e instanceof ApiError&&e.status===409)setConflict(true)}finally{setBusy(false)}}}>
 
-      <label>Status<select value={status} disabled={busy} onChange={e=>setStatus(e.target.value)}>{['Pendente','Em análise','Resolvido','Falso positivo'].map(s=><option key={s}>{s}</option>)}</select></label>
+      <label>Status<select value={status} disabled={publicDemo||busy} onChange={e=>setStatus(e.target.value)}>{['Pendente','Em análise','Resolvido','Falso positivo'].map(s=><option key={s}>{s}</option>)}</select></label>
 
-      <label>Observações<textarea disabled={busy} maxLength={2000} value={note} onChange={e=>setNote(e.target.value)} placeholder="Registre as evidências da sua revisão"/><small>{note.length}/2.000 caracteres</small></label>
+      <label>Observações<textarea disabled={publicDemo||busy} maxLength={2000} value={note} onChange={e=>setNote(e.target.value)} placeholder="Registre as evidências da sua revisão"/><small>{note.length}/2.000 caracteres</small></label>
 
       <button className="primary" disabled={publicDemo||busy||!dirty||conflict}>{busy?'Salvando…':'Salvar análise'}</button>
 

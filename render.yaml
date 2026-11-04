@@ -6,9 +6,15 @@ services:
     repo: https://github.com/gabmali/frauddetect
     branch: main
     dockerfilePath: ./Dockerfile
-    healthCheckPath: /api/health
+    healthCheckPath: /healthz
     envVars:
       - key: PUBLIC_DEMO
         value: "1"
       - key: STATIC_DIR
         value: frontend/dist
+      - key: REQUIRE_DEMO_AUTH
+        value: "1"
+      - key: DEMO_ACCESS_USER
+        value: recrutador
+      - key: DEMO_ACCESS_PASSWORD
+        sync: false

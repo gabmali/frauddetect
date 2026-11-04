@@ -4,13 +4,13 @@
 
 Python · FastAPI · React · TypeScript · SQLite · Scikit-learn
 
-[Como acessar e publicar a demonstração](docs/PUBLICACAO.md) · [Código no GitHub](https://github.com/gabmali/frauddetect) · [Validação e evidências](docs/PORTFOLIO.md)
+[Demonstração para recrutadores — configuração de acesso por senha](docs/PUBLICACAO.md) · [Código no GitHub](https://github.com/gabmali/frauddetect) · [Validação e evidências](docs/PORTFOLIO.md)
 
 ![Dashboard FraudDetect](docs/screenshots/qa-desktop.jpg)
 
 Validação final, evidências e roteiro de apresentação: [docs/PORTFOLIO.md](docs/PORTFOLIO.md).
 
-**Validação de portfólio concluída em 03/11/2026:** 49 testes automatizados aprovados (34 de backend e 15 de frontend), build de produção validado e roteiro funcional no Microsoft Edge aprovado manualmente pela usuária. Escopo e limitações estão registrados no relatório final.
+**Validação de portfólio concluída em 03/11/2026:** 54 testes automatizados aprovados (39 de backend e 15 de frontend), build de produção validado e roteiro funcional no Microsoft Edge aprovado manualmente pela usuária. Escopo e limitações estão registrados no relatório final.
 
 Plataforma inteligente de detecção de fraudes — demonstração local de análise de risco com **dados 100% fictícios**. Projeto de portfólio de Gabriela Oliveira.
 

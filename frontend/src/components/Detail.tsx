@@ -60,4 +60,3 @@ export function Detail({id,onClose,onChange}:{id:string;onClose:()=>void;onChang
   </dialog>
 
 }
-

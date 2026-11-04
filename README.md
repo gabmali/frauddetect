@@ -152,4 +152,3 @@ Nenhum serviço pago, conta em nuvem ou API externa é necessário para executar
 Resultados da execução e avisos conhecidos: [docs/VALIDACAO.md](docs/VALIDACAO.md). `backend/requirements-lock.txt` registra as versões Python usadas nesta validação; pode ser utilizado no lugar de `requirements.txt` para reproduzir esse ambiente.
 
 Histórico de QA: [docs/QA.md](docs/QA.md). A validação final soma 47 testes automatizados, além dos fluxos manuais registrados em [docs/PORTFOLIO.md](docs/PORTFOLIO.md).
-
